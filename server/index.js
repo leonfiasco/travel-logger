@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.use('/logs', logs);
+app.use('/api/logs', logs);
 
 app.use(middlewares.notFound);
 // error handling middleware
