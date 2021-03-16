@@ -16,3 +16,7 @@ code {
 .marker {
 	stroke: #0365fd;
 }
+
+.popup {
+	max-width: 300px;
+}
