@@ -17,6 +17,20 @@ code {
 	stroke: #0365fd;
 }
 
+.new-marker {
+	stroke: #3c8a3f;
+}
+
 .popup {
-	max-width: 300px;
+	max-width: 400px;
+	padding: 1rem;
+}
+
+.entry-form label,
+.entry-form input,
+.entry-form textarea,
+.entry-form button {
+	margin-right: 0.5rem 0;
+	display: block;
+	width: 100%;
 }

@@ -2,10 +2,13 @@ import react from 'react';
 import { useState, useEffect } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import { listLogEntries } from './API';
+import EntryForm from './EntryForm';
 
 function App() {
-	const [showPopup, setShowPopup] = useState({});
 	const [logEntries, setLogEntries] = useState([]);
+	const [showPopup, setShowPopup] = useState({});
+	const [addEntryLocation, setAddEntryLocation] = useState(null);
+
 	const [viewport, setViewport] = useState({
 		width: '100vw',
 		height: '100vh',
@@ -21,12 +24,21 @@ function App() {
 		})();
 	}, []);
 
+	const showAddMarkerPopup = (e) => {
+		const [longitude, latitude] = e.lngLat;
+		setAddEntryLocation({
+			latitude,
+			longitude,
+		});
+	};
+
 	return (
 		<ReactMapGL
 			{...viewport}
 			mapStyle='mapbox://styles/mapbox/dark-v10'
 			mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
 			onViewportChange={(nextViewport) => setViewport(nextViewport)}
+			onDblClick={showAddMarkerPopup}
 		>
 			{logEntries.map((entry) => (
 				<>
@@ -51,10 +63,10 @@ function App() {
 									height: '24px',
 								}}
 								viewBox='0 0 24 24'
-								stroke-width='1.5'
+								strokeWidth='1.5'
 								fill='none'
-								stroke-linecap='round'
-								stroke-linejoin='round'
+								strokeLinecap='round'
+								strokeLinejoin='round'
 							>
 								<path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path>
 								<circle cx='12' cy='10' r='3'></circle>
@@ -82,6 +94,54 @@ function App() {
 					) : null}
 				</>
 			))}
+			{addEntryLocation ? (
+				<>
+					<Marker
+						key={addEntryLocation._id}
+						latitude={addEntryLocation.latitude}
+						longitude={addEntryLocation.longitude}
+						offsetLeft={-12}
+						offsetTop={-24}
+					>
+						<div
+							onClick={() =>
+								setShowPopup({
+									[addEntryLocation._id]: true,
+								})
+							}
+						>
+							<svg
+								className='new-marker'
+								style={{
+									width: '24px',
+									height: '24px',
+								}}
+								viewBox='0 0 24 24'
+								strokeWidth='1.5'
+								fill='none'
+								strokeLinecap='round'
+								strokeLinejoin='round'
+							>
+								<path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'></path>
+								<circle cx='12' cy='10' r='3'></circle>
+							</svg>
+						</div>
+					</Marker>
+					<Popup
+						latitude={addEntryLocation.latitude}
+						longitude={addEntryLocation.longitude}
+						closeButton={true}
+						closeOnClick={false}
+						dynamicPosition={true}
+						onClose={() => setAddEntryLocation(null)}
+						anchor='top'
+					>
+						<div className='popup'>
+							<EntryForm location={addEntryLocation} />
+						</div>
+					</Popup>
+				</>
+			) : null}
 		</ReactMapGL>
 	);
 }
