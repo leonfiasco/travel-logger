@@ -10,7 +10,7 @@ The app uses Node.JS, Express.js, MongoDB, React hooks, And mapbox which allows 
 
 ### The app
 
-The app itelf allows you to plot markers on locations you have travelled to and write and descrition about the place,add an image, rate it and allows you to add the date of when you visited   .
+The app itelf allows you to plot markers on locations you have travelled to and write a description about the place,add an image, rate it and allows you to add the date of when you visited.
 
 
 ## Future additions
