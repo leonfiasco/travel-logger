@@ -1,6 +1,5 @@
 {
 	"version": 2,
-	"name": "leons-travel-log",
 	"builds": [
 		{
 			"src": "./index.js",
@@ -13,12 +12,11 @@
 			"dest": "./index.js"
 		}
 	],
-	"alias": ["leons-travel-log"],
 	"env": {
 		"NODE_ENV": "production",
-		"PORT": "1337",
+		"PORT": "2402",
 		"DATABASE_URL": "@travel-log-db",
-		"CORS_ORIGIN": "",
+		"CORS_ORIGIN": "http://localhost:3000",
 		"API_KEY": "@travel-api-key"
 	}
 }
