@@ -3,6 +3,8 @@ const router = Router();
 
 const LogEntry = require('../models/LogEntry');
 
+const { API_KEY } = process.env;
+
 router.get('/', async (req, res, next) => {
 	try {
 		const entries = await LogEntry.find();
